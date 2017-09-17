@@ -1,8 +1,11 @@
-% Optical Calibration
-clear all
-trial = 'debug-b';
+% opt_pivot_calibration_main.m
+% Perform pivot calibration using a probe with optical markers to obtain 
+% the position of the calibration post relative to the EM base.
 
-% Read files
+% Change this variable to change the data set to be used.
+trial = 'debug-a';
+
+% Read data from file
 calbody_struct = ReadFile(['pa1-',trial,'-calbody.txt']);
 optpivot_struct = ReadFile(['pa1-',trial,'-optpivot.txt']);
 
@@ -21,7 +24,8 @@ for i = 1:num_frames
         opt_markers_on_em_base_rel_em_base, opt_markers_on_em_base_rel_opt_tracker);
 end
 
-% Calculate positions of markers on probe with respect to probe local frame
+% Calculate positions of EM markers on probe with respect to the probe
+% local frame. (h in figure)
 opt_markers_on_probe = optpivot_struct.frames{1}.opt_markers_on_probe_rel_opt_tracker;
 center_opt_markers_on_probe = mean(opt_markers_on_probe, 2);
 opt_markers_on_probe_rel_probe = opt_markers_on_probe - ...

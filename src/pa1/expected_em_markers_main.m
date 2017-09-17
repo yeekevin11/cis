@@ -1,13 +1,13 @@
+% expected_em_markers_main.m
 % Calculate the expected positions of the EM trackers on the calibration
-% object relative to the EM tracker base. This is accomplished by finding
+% object relative to the EM tracker base. This is accomplished by using
 % the transformations from the optical tracker to the EM tracker base and
-% to the calibration object. Using these two transformations and the known
-% positions of the EM trackers on the calibration object relative to the
-% calibration object yields the result. 
+% to the calibration object. 
 
+% Change this variable to change the data set to be used.
 trial = 'debug-a';
 
-% Read files
+% Read data from file
 calbody_struct = ReadFile(['pa1-',trial,'-calbody.txt']);
 calreadings_struct = ReadFile(['pa1-',trial,'-calreadings.txt']);
 
@@ -41,5 +41,6 @@ for i = 1:num_frames
     em_markers_on_cal_object_rel_em_base_expected_hg(:,:,i) =  transform_em_base_to_cal_object * ...
         em_markers_on_cal_object_rel_cal_object_hg;
 end
+
 em_markers_on_cal_object_rel_em_base_expected = em_markers_on_cal_object_rel_em_base_expected_hg(1:3,:,:)
 
